@@ -1,0 +1,20 @@
+web:
+  build: ./nginx
+  links:
+    - api
+  ports:
+    - "80:80"
+
+api:
+  build: .
+  volumes:
+    - .:/go/src/docker-private-registry
+  links:
+    - db
+  ports:
+    - "8080"
+
+db:
+  extends:
+    file: postgresql.yml
+    service: db
